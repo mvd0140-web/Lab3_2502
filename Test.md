@@ -3,7 +3,7 @@ public class popo {
     public static Scanner in = new Scanner(System.in);
     public static PrintStream out = System.out;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
                 out.println("Создаем новый список и бюджет:");
                 Budjet b1 = new Budjet(800.0);
                 Spisok s1 = new Spisok();
@@ -11,41 +11,57 @@ public class popo {
                 out.println("Начальный бюджет: " + b1);
                 out.println("Увеличиваем бюджет:");
                 b1.plussum(200.0);
+
                 out.println("Измененный бюджет: " + b1);
+
                 s1.add("Хлеб", 50.0, 2, "Не куплено");
                 s1.add("Молоко", 80.0, 1, "Не куплено");
                 s1.add("Мясо", 300.0, 1, "Не куплено");
                 s1.add("Сыр", 200.0, 1, "Не куплено");
                 s1.add("Яблоки", 120.0, 2, "Не куплено");
+
                 out.println("" + s1);
+
                 out.println("Могу ли я купить товар №1?");
                 s1.dostatochno1(1, b1.sum);
                 out.println();
+
                 out.println("Могу ли я купить товар №3?");
                 s1.dostatochno1(3, b1.sum);
                 out.println();
+
                 out.println("Могу ли я купить всё?");
                 s1.kupluvse(b1.sum);
                 out.println();
+
                 out.println("Сколько мне не хватает для покупки всего списка?");
                 s1.nehvataet(b1.sum);
                 out.println();
+
                 out.println("Попытка купить товар №1");
                 b1.sum = s1.pokupka(1, b1.sum);
                 out.println("Текущий бюджет: " + b1);
+
                 out.println("" + s1);
+
                 out.println("Полная стоимость списка: " + s1.polnayacost());
+
                 out.println("Стоимость некупленных товаров: " + s1.fullnekupleno());
+
                 out.println("Сортируем список по убыванию и возрастанию цены:");
                 s1.sorte();
                 out.println("" + s1);
                 s1.sortp();
                 out.println("" + s1);
+
                 out.println("Самый дорогой товар:");
                 s1.samydor();
+
                 out.println("Самый дешевый товар:");
                 out.println(s1.samydesh());
+
                 out.println();
+
                 out.println("Создаем новый список и бюджет:");
                 Budjet b2 = new Budjet(1000.0);
                 Spisok s2 = new Spisok();
@@ -69,7 +85,6 @@ public class popo {
 
                 out.println("Начальный бюджет: " + b3);
 
-                // Добавляем товары
                 s3.add("Хлеб", 50.0, 2, "Не куплено");
                 s3.add("Молоко", 80.0, 1, "Не куплено");
                 s3.add("Мясо", 300.0, 1, "Не куплено");
@@ -93,7 +108,7 @@ public class popo {
 
                 out.println("Начальный бюджет: " + b4);
 
-                // Добавляем товары
+
                 s4.add("Хлеб", 50.0, 2, "Не куплено");
                 s4.add("Молоко", 80.0, 1, "Не куплено");
                 s4.add("Мясо", 300.0, 1, "Не куплено");
