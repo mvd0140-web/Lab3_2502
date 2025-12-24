@@ -19,18 +19,18 @@ class Spisok {
     // Добавление нового товара в список
     public void add(String name, double cost, int amount, String status){
         kolvo();
-        Item i1 = new Item(name, cost, amount, status);
-        items[k] = i1;
+        if (k > 99) {
+            out.println("Список переполнен");
+        }
+        else {
+            Item i1 = new Item(name, cost, amount, status);
+            items[k] = i1;
+        }
     }
     // Функция, определяющая хватит ли бюджета для покупки того или иного товара
     public boolean dostatochno(int a, double sum) {
         double q = items[a-1].cost * items[a-1].amount;
-        if (q <= sum) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return q<=sum;
     }
     // Функция, определяющая можно ли купить товар в зависимости от статуса куплено/не куплено
     public void dostatochno1(int a, double sum) {
@@ -121,10 +121,12 @@ class Spisok {
         for (int i = 1; i <= k; i++) {
             if (items[i].cost * items[i].amount > q && items[i].status.equals("Не куплено")) {
                     result = items[i];
+                    q = items[i].cost * items[i].amount;
             }
             else if (items[i].cost * items[i].amount == q && items[i].status.equals("Не куплено")) {
                 if (items[i].cost > items[0].cost) {
                     result = items[i];
+                    q = items[i].cost * items[i].amount;
                 }
             }
         }
@@ -142,10 +144,12 @@ class Spisok {
         for (int i = 1; i <= k; i++) {
             if (items[i].cost * items[i].amount < q && items[i].status.equals("Не куплено")) {
                     result = items[i];
+                    q = items[i].cost * items[i].amount;
             }
             else if (items[i].cost * items[i].amount == q && items[i].status.equals("Не куплено")) {
                 if (items[i].cost < items[0].cost) {
                     result = items[i];
+                    q = items[i].cost * items[i].amount;
                 }
             }
         }
@@ -155,9 +159,10 @@ class Spisok {
     public double kupitVse(double budget, boolean fromCheapest) {
         Item[] sortedItems = Arrays.copyOf(items, k + 1);
         if (fromCheapest) {
-            Arrays.sort(sortedItems, 0, k + 1, Comparator.comparingDouble(Item::getCost));
-        } else {
-            Arrays.sort(sortedItems, 0, k + 1, Comparator.comparingDouble(Item::getCost).reversed());
+            sorte();
+        }
+        else {
+            sortp();
         }
         double remainingBudget = budget;
         int kuplenoCount = 0;
@@ -177,7 +182,8 @@ class Spisok {
                 remainingBudget -= totalCost;
                 kuplenoCount++;
                 out.println("Куплен: " + item.name + " за " + String.format("%.2f", totalCost));
-            } else {
+            }
+            else {
                 out.println("Не удалось купить: " + item.name + " (не хватает " +
                         String.format("%.2f", totalCost - remainingBudget) + ")");
                 break;
@@ -212,9 +218,10 @@ class Spisok {
             count = Math.min(count, availableCount);
         }
         if (fromCheapest) {
-            Arrays.sort(availableItems, 0, availableCount, Comparator.comparingDouble(Item::getCost));
-        } else {
-            Arrays.sort(availableItems, 0, availableCount, Comparator.comparingDouble(Item::getCost).reversed());
+            sorte();
+        }
+        else {
+            sortp();
         }
         double remainingBudget = budget;
         int boughtCount = 0;
@@ -231,7 +238,8 @@ class Spisok {
                 remainingBudget -= totalCost;
                 boughtCount++;
                 out.println("Куплен: " + item.name + " за " + String.format("%.2f", totalCost));
-            } else {
+            }
+            else {
                 out.println("Не удалось купить: " + item.name + " (не хватает " +
                         String.format("%.2f", totalCost - remainingBudget) + ")");
             }
