@@ -15,6 +15,10 @@ class Budjet {
             this.sum = sum;
         }
     }
+    // Создание неуказанного бюджета
+    public Budjet() {
+        this.sum = 0;
+    }
     // Изменение бюджета
     public void setSum(double a) {
         if (sum < 0) {
@@ -26,7 +30,12 @@ class Budjet {
     }
     // Увеличение бюджета
     public void plussum(double a) {
-        this.sum = sum + a;
+        if (sum + a < 0) {
+            this.sum = 0;
+        }
+        else {
+            this.sum = sum + a;
+        }
     }
 }
 ```
